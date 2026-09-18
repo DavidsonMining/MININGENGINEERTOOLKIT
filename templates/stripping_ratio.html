@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stripping Ratio Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>⛏ Stripping Ratio Calculator</h1>
+        <p>Calculate the ratio of overburden to ore</p>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/stripping-ratio">Stripping Ratio</a>
+        <a href="/porosity">Porosity</a>
+        <a href="/density">Density</a>
+        <a href="/grade-recovery">Grade & Recovery</a>
+        <a href="/bulk-density">Bulk Density</a>
+    </nav>
+    <main>
+        <h2>Enter Your Values</h2>
+        <form method="POST">
+            <label>Overburden Volume:</label>
+            <input type="number" name="overburden" placeholder="e.g. 50000" step="any" required>
+            <br><br>
+            <label>Ore Volume:</label>
+            <input type="number" name="ore" placeholder="e.g. 10000" step="any" required>
+            <br><br>
+            <button type="submit">Calculate</button>
+        </form>
+        {% if result is not none %}
+            <div class="result">
+                <h2>Stripping Ratio = {{ result }}</h2>
+                <p>Formula: Stripping Ratio = Overburden Volume ÷ Ore Volume</p>
+            </div>
+        {% endif %}
+        <br>
+        <a href="/">← Back to Home</a>
+    </main>
+</body>
+</html>

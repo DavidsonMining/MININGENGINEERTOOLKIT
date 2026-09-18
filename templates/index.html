@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mining Engineer Toolkit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>⛏ Mining Engineer Toolkit</h1>
+        <p>Your Mining Engineering Study & Calculation Platform</p>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="#calculators">Calculators</a>
+        <a href="#resources">Resources</a>
+        <a href="#about">About</a>
+    </nav>
+    <main>
+        <section id="calculators">
+            <h2>Mining Calculators</h2>
+            <p>Select a calculator to get started.</p>
+            <div class="calculator-grid">
+                <a href="/stripping-ratio" class="calculator-card">
+                    <h3>⛏️ Stripping Ratio</h3>
+                    <p>Calculate the ratio of overburden to ore.</p>
+                </a>
+                <a href="/porosity" class="calculator-card">
+                    <h3>🪨 Porosity</h3>
+                    <p>Calculate the percentage of pore space in a material.</p>
+                </a>
+                <a href="/density" class="calculator-card">
+                    <h3>⚖️ Density</h3>
+                    <p>Calculate the density of a material.</p>
+                </a>
+                <a href="/grade-recovery" class="calculator-card">
+                    <h3>⛏️ Grade & Recovery</h3>
+                    <p>Calculate mineral recovery from feed and concentrate data.</p>
+                </a>
+                <a href="/bulk-density" class="calculator-card">
+                    <h3>🪨 Bulk Density</h3>
+                    <p>Calculate the bulk density of a material.</p>
+                </a>
+            </div>
+        </section>
+        <section id="resources">
+            <h2>Mining Resources</h2>
+            <p>Study materials, formulas and useful engineering resources will be added here.</p>
+        </section>
+        <section id="about">
+            <h2>About the Toolkit</h2>
+            <p>
+                Mining Engineer Toolkit is designed to help mining engineering
+                students perform calculations and access useful study resources
+                in one place.
+            </p>
+        </section>
+    </main>
+</body>
+</html>
