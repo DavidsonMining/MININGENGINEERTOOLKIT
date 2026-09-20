@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Equipment Productivity Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>🚜 Equipment Productivity Calculator</h1>
+        <p>Estimate equipment productivity in tonnes per hour.</p>
+    </header>
+
+    <main>
+
+        <form method="POST">
+
+            <label>Bucket Capacity (tonnes):</label>
+            <input type="number" step="any" name="bucket_capacity" required>
+
+            <label>Cycles per Hour:</label>
+            <input type="number" step="any" name="cycles_per_hour" required>
+
+            <label>Operating Hours:</label>
+            <input type="number" step="any" name="operating_hours" required>
+
+            <button type="submit">Calculate Productivity</button>
+
+        </form>
+
+        {% if result is not none %}
+            <h2>Result</h2>
+            <p><strong>Equipment Productivity:</strong> {{ result }} tonnes</p>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

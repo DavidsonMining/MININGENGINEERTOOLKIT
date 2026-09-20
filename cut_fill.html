@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cut & Fill Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>🏗️ Cut & Fill Calculator</h1>
+        <p>Calculate cut volume, fill volume and the net material balance.</p>
+    </header>
+
+    <main>
+
+        <form method="POST">
+
+            <h2>Cut Area</h2>
+
+            <label>Cut Area (m²):</label>
+            <input type="number" step="any" name="cut_area" required>
+
+            <label>Cut Depth (m):</label>
+            <input type="number" step="any" name="cut_depth" required>
+
+            <h2>Fill Area</h2>
+
+            <label>Fill Area (m²):</label>
+            <input type="number" step="any" name="fill_area" required>
+
+            <label>Fill Depth (m):</label>
+            <input type="number" step="any" name="fill_depth" required>
+
+            <button type="submit">Calculate</button>
+
+        </form>
+
+        {% if cut_volume is not none %}
+            <h2>Results</h2>
+
+            <p>
+                <strong>Cut Volume:</strong>
+                {{ cut_volume }} m³
+            </p>
+
+            <p>
+                <strong>Fill Volume:</strong>
+                {{ fill_volume }} m³
+            </p>
+
+            <p>
+                <strong>Net Material Balance:</strong>
+                {{ net_balance }} m³
+            </p>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

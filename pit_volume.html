@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pit & Bench Volume Calculator | Mining Engineer Toolkit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>🏔️ Pit & Bench Volume Calculator</h1>
+        <p>Calculate the volume of a rectangular pit or bench</p>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/stripping-ratio">Stripping Ratio</a>
+        <a href="/porosity">Porosity</a>
+        <a href="/density">Density</a>
+        <a href="/grade-recovery">Grade & Recovery</a>
+        <a href="/bulk-density">Bulk Density</a>
+        <a href="/tonnage">Tonnage</a>
+        <a href="/haulage">Haulage</a>
+        <a href="/blasting">Blasting</a>
+        <a href="/pit-volume">Pit & Bench Volume</a>
+    </nav>
+    <main>
+        <h2>Enter Pit / Bench Dimensions</h2>
+        <p>
+            Enter the length, width and height of the pit or bench
+            to calculate its approximate volume.
+        </p>
+        <form method="POST">
+            <label for="length">Length (m)</label>
+            <input
+                type="number"
+                id="length"
+                name="length"
+                placeholder="e.g. 100"
+                step="any"
+                min="0"
+                required
+            >
+            <label for="width">Width (m)</label>
+            <input
+                type="number"
+                id="width"
+                name="width"
+                placeholder="e.g. 50"
+                step="any"
+                min="0"
+                required
+            >
+            <label for="height">Height / Depth (m)</label>
+            <input
+                type="number"
+                id="height"
+                name="height"
+                placeholder="e.g. 10"
+                step="any"
+                min="0"
+                required
+            >
+            <button type="submit">Calculate Volume</button>
+        </form>
+        {% if result is not none %}
+            <div class="result">
+                <h2>Calculated Volume</h2>
+                <p class="result-value">
+                    {{ result }} m³
+                </p>
+                <p>
+                    <strong>Formula:</strong>
+                    Volume = Length × Width × Height
+                </p>
+            </div>
+        {% endif %}
+        <div class="calculator-info">
+            <h3>How it works</h3>
+            <p>
+                The calculator estimates the volume of a rectangular
+                pit or bench by multiplying its length, width and
+                vertical height or depth.
+            </p>
+            <p>
+                <strong>Example:</strong>
+                100 m × 50 m × 10 m = 50,000 m³
+            </p>
+            <p>
+                This is an approximate calculation. Actual mine pit
+                volumes may require bench geometry, slopes and other
+                design parameters.
+            </p>
+        </div>
+        <br>
+        <a href="/">← Back to Home</a>
+    </main>
+</body>
+</html>

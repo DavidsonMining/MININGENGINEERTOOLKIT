@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Equipment Operating Cost Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>🚜 Equipment Operating Cost Calculator</h1>
+        <p>Estimate the total operating cost of mining equipment.</p>
+    </header>
+
+    <main>
+
+        <form method="POST">
+
+            <label>Fuel Cost per Hour:</label>
+            <input type="number" step="any" name="fuel_cost_per_hour" min="0" required>
+
+            <label>Operating Hours:</label>
+            <input type="number" step="any" name="operating_hours" min="0" required>
+
+            <label>Maintenance Cost per Hour:</label>
+            <input type="number" step="any" name="maintenance_cost_per_hour" min="0" required>
+
+            <label>Other Cost per Hour:</label>
+            <input type="number" step="any" name="other_cost_per_hour" min="0" required>
+
+            <button type="submit">Calculate Cost</button>
+
+        </form>
+
+        {% if total_cost is not none %}
+            <h2>Result</h2>
+
+            <p>
+                <strong>Total Equipment Operating Cost:</strong>
+                {{ total_cost }}
+            </p>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

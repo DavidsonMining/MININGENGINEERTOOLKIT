@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fuel Consumption Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>⛽ Fuel Consumption Calculator</h1>
+        <p>Estimate fuel usage and operating fuel cost.</p>
+    </header>
+
+    <main>
+
+        <form method="POST">
+
+            <label>Fuel Consumption Rate (L/hour):</label>
+            <input type="number" step="any" name="fuel_rate" min="0" required>
+
+            <label>Operating Hours:</label>
+            <input type="number" step="any" name="operating_hours" min="0" required>
+
+            <label>Fuel Price (per litre):</label>
+            <input type="number" step="any" name="fuel_price" min="0" required>
+
+            <button type="submit">Calculate</button>
+
+        </form>
+
+        {% if total_fuel is not none %}
+            <h2>Results</h2>
+
+            <p>
+                <strong>Total Fuel Consumed:</strong>
+                {{ total_fuel }} litres
+            </p>
+
+            <p>
+                <strong>Total Fuel Cost:</strong>
+                {{ total_cost }}
+            </p>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

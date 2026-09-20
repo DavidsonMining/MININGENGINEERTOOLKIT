@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Specific Gravity Calculator | Mining Engineer Toolkit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <header>
+        <h1>⚖️ Specific Gravity Calculator</h1>
+        <p>Calculate the specific gravity of a material</p>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/stripping-ratio">Stripping Ratio</a>
+        <a href="/porosity">Porosity</a>
+        <a href="/density">Density</a>
+        <a href="/grade-recovery">Grade & Recovery</a>
+        <a href="/bulk-density">Bulk Density</a>
+        <a href="/tonnage">Tonnage</a>
+        <a href="/haulage">Haulage</a>
+        <a href="/blasting">Blasting</a>
+        <a href="/pit-volume">Pit & Bench Volume</a>
+        <a href="/ore-grade">Ore Grade</a>
+        <a href="/recovery">Recovery</a>
+        <a href="/moisture">Moisture Content</a>
+        <a href="/specific-gravity">Specific Gravity</a>
+    </nav>
+
+    <main>
+
+        <h2>Enter Density Data</h2>
+
+        <p>
+            Enter the density of the material and the density of water
+            to calculate specific gravity.
+        </p>
+
+        <form method="POST">
+
+            <label for="material_density">Material Density (kg/m³)</label>
+            <input
+                type="number"
+                id="material_density"
+                name="material_density"
+                placeholder="e.g. 2700"
+                step="any"
+                min="0"
+                required
+            >
+
+            <label for="water_density">Water Density (kg/m³)</label>
+            <input
+                type="number"
+                id="water_density"
+                name="water_density"
+                placeholder="e.g. 1000"
+                step="any"
+                min="0"
+                required
+            >
+
+            <button type="submit">Calculate Specific Gravity</button>
+
+        </form>
+
+        {% if result is not none %}
+            <div class="result">
+
+                <h2>Calculated Specific Gravity</h2>
+
+                <p class="result-value">
+                    {{ result }}
+                </p>
+
+                <p>
+                    <strong>Formula:</strong>
+                    Specific Gravity = Material Density ÷ Water Density
+                </p>
+
+            </div>
+        {% endif %}
+
+        <div class="calculator-info">
+
+            <h3>How it works</h3>
+
+            <p>
+                Specific gravity is the ratio of the density of a material
+                to the density of water.
+            </p>
+
+            <p>
+                <strong>Example:</strong>
+                If a material has a density of 2,700 kg/m³ and water has
+                a density of 1,000 kg/m³:
+            </p>
+
+            <p>
+                2,700 ÷ 1,000 = 2.7
+            </p>
+
+            <p>
+                Specific gravity has no unit because it is a ratio.
+            </p>
+
+        </div>
+
+        <br>
+
+        <a href="/">← Back to Home</a>
+
+    </main>
+
+</body>
+</html>

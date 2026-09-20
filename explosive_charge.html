@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Explosive Charge Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>💥 Explosive Charge Calculator</h1>
+        <p>Calculate total explosive mass from recorded charge data.</p>
+    </header>
+
+    <main>
+
+        <form method="POST">
+
+            <label>Number of Charges:</label>
+            <input type="number" name="number_of_holes" min="1" required>
+
+            <label>Charge per Unit (kg):</label>
+            <input type="number" step="any" name="charge_per_hole" min="0" required>
+
+            <button type="submit">Calculate Total Mass</button>
+
+        </form>
+
+        {% if result is not none %}
+            <h2>Result</h2>
+            <p>
+                <strong>Total Recorded Explosive Mass:</strong>
+                {{ result }} kg
+            </p>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

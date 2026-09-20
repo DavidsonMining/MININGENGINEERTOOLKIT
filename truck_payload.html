@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Truck Payload & Capacity Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>🚛 Truck Payload & Capacity Calculator</h1>
+        <p>Calculate truck payload and total material hauled.</p>
+    </header>
+
+    <main>
+
+        <form method="POST">
+
+            <label>Truck Body Capacity (m³):</label>
+            <input type="number" step="any" name="truck_capacity" required>
+
+            <label>Material Density (t/m³):</label>
+            <input type="number" step="any" name="density" required>
+
+            <label>Load Factor (%):</label>
+            <input type="number" step="any" name="load_factor" required>
+
+            <label>Number of Trips:</label>
+            <input type="number" name="trips" required>
+
+            <button type="submit">Calculate</button>
+
+        </form>
+
+        {% if payload is not none %}
+            <h2>Results</h2>
+            <p><strong>Payload per Trip:</strong> {{ payload }} tonnes</p>
+            <p><strong>Total Material Hauled:</strong> {{ total_hauled }} tonnes</p>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

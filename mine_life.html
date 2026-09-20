@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mine Life Calculator | Mining Engineer Toolkit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <header>
+        <h1>⛏️ Mine Life Calculator</h1>
+        <p>Estimate mine life from mineable reserves and production rate</p>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/stripping-ratio">Stripping Ratio</a>
+        <a href="/porosity">Porosity</a>
+        <a href="/density">Density</a>
+        <a href="/grade-recovery">Grade & Recovery</a>
+        <a href="/bulk-density">Bulk Density</a>
+        <a href="/tonnage">Tonnage</a>
+        <a href="/haulage">Haulage</a>
+        <a href="/blasting">Blasting</a>
+        <a href="/pit-volume">Pit & Bench Volume</a>
+        <a href="/ore-grade">Ore Grade</a>
+        <a href="/recovery">Recovery</a>
+        <a href="/moisture">Moisture Content</a>
+        <a href="/specific-gravity">Specific Gravity</a>
+        <a href="/mine-life">Mine Life</a>
+    </nav>
+
+    <main>
+
+        <h2>Enter Mine Data</h2>
+
+        <p>
+            Enter the mineable reserves and annual production rate
+            to estimate the operating life of the mine.
+        </p>
+
+        <form method="POST">
+
+            <label for="reserves">Mineable Reserves (tonnes)</label>
+            <input
+                type="number"
+                id="reserves"
+                name="reserves"
+                placeholder="e.g. 10000000"
+                step="any"
+                min="0"
+                required
+            >
+
+            <label for="production">Annual Production Rate (tonnes/year)</label>
+            <input
+                type="number"
+                id="production"
+                name="production"
+                placeholder="e.g. 500000"
+                step="any"
+                min="0"
+                required
+            >
+
+            <button type="submit">Calculate Mine Life</button>
+
+        </form>
+
+        {% if result is not none %}
+            <div class="result">
+
+                <h2>Estimated Mine Life</h2>
+
+                <p class="result-value">
+                    {{ result }} years
+                </p>
+
+                <p>
+                    <strong>Formula:</strong>
+                    Mine Life = Mineable Reserves ÷ Annual Production
+                </p>
+
+            </div>
+        {% endif %}
+
+        <div class="calculator-info">
+
+            <h3>How it works</h3>
+
+            <p>
+                Mine life is an estimate of how long the mine can operate
+                at a specified annual production rate.
+            </p>
+
+            <p>
+                <strong>Example:</strong>
+                10,000,000 tonnes of mineable reserves produced at
+                500,000 tonnes per year gives:
+            </p>
+
+            <p>
+                10,000,000 ÷ 500,000 = 20 years
+            </p>
+
+            <p>
+                Actual mine life may vary because of production changes,
+                recovery, dilution, economic factors and other mine
+                planning considerations.
+            </p>
+
+        </div>
+
+        <br>
+
+        <a href="/">← Back to Home</a>
+
+    </main>
+
+</body>
+</html>

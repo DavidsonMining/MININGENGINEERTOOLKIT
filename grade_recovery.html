@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade & Recovery Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>⛏️ Grade & Recovery Calculator</h1>
+        <p>Calculate the grade and recovery of a mineral</p>
+    </header>
+
+    <main>
+        <h2>Enter Your Values</h2>
+
+        <form method="POST">
+
+            <label>Ore Feed:</label>
+            <input type="number" name="ore_feed" placeholder="e.g. 1000" step="any" required>
+
+            <br><br>
+
+            <label>Ore Grade:</label>
+            <input type="number" name="ore_grade" placeholder="e.g. 2.5" step="any" required>
+
+            <br><br>
+
+            <label>Concentrate:</label>
+            <input type="number" name="concentrate" placeholder="e.g. 100" step="any" required>
+
+            <br><br>
+
+            <label>Concentrate Grade:</label>
+            <input type="number" name="concentrate_grade" placeholder="e.g. 20" step="any" required>
+
+            <br><br>
+
+            <button type="submit">Calculate Recovery</button>
+
+        </form>
+
+        {% if result is not none %}
+            <div class="result">
+                <h2>Recovery = {{ result }}%</h2>
+                <p>Formula: Recovery = (Concentrate × Concentrate Grade) ÷ (Ore Feed × Ore Grade) × 100</p>
+            </div>
+        {% endif %}
+
+        <br>
+
+        <a href="/">← Back to Home</a>
+    </main>
+
+</body>
+</html>

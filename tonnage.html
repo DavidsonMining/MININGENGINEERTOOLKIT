@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tonnage Calculator | Mining Engineer Toolkit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <header>
+        <h1>⛏️ Tonnage Calculator</h1>
+        <p>Calculate material tonnage from volume and density</p>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/stripping-ratio">Stripping Ratio</a>
+        <a href="/porosity">Porosity</a>
+        <a href="/density">Density</a>
+        <a href="/grade-recovery">Grade & Recovery</a>
+        <a href="/bulk-density">Bulk Density</a>
+        <a href="/tonnage">Tonnage</a>
+    </nav>
+
+    <main>
+
+        <h2>Enter Material Data</h2>
+
+        <p>
+            Enter the material volume and its density to calculate
+            the estimated tonnage.
+        </p>
+
+        <form method="POST">
+
+            <label for="volume">Volume (m³)</label>
+            <input
+                type="number"
+                id="volume"
+                name="volume"
+                placeholder="e.g. 1000"
+                step="any"
+                min="0"
+                required
+            >
+
+            <label for="density">Density (t/m³)</label>
+            <input
+                type="number"
+                id="density"
+                name="density"
+                placeholder="e.g. 2.5"
+                step="any"
+                min="0"
+                required
+            >
+
+            <button type="submit">Calculate Tonnage</button>
+
+        </form>
+
+        {% if result is not none %}
+            <div class="result">
+                <h2>Calculated Tonnage</h2>
+                <p class="result-value">{{ result }} tonnes</p>
+
+                <p>
+                    <strong>Formula:</strong>
+                    Tonnage = Volume × Density
+                </p>
+            </div>
+        {% endif %}
+
+        <div class="calculator-info">
+            <h3>How it works</h3>
+
+            <p>
+                Tonnage is calculated by multiplying the volume of the
+                material by its density.
+            </p>
+
+            <p>
+                <strong>Example:</strong>
+                1,000 m³ × 2.5 t/m³ = 2,500 tonnes
+            </p>
+        </div>
+
+        <br>
+
+        <a href="/">← Back to Home</a>
+
+    </main>
+
+</body>
+</html>
