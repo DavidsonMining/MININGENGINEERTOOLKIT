@@ -6,158 +6,6 @@ body {
 }
 
 header {
-    background-color: #263238;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-nav {
-    background-color: #37474f;
-    padding: 12px;
-    text-align: center;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-}
-
-main {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-}
-
-button {
-    padding: 12px 20px;
-    margin: 8px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-.result {
-    margin-top: 25px;
-    padding: 20px;
-    background-color: #e8f5e9;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.result h2 {
-    margin-bottom: 10px;
-}
-.calculator-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 25px;
-}
-
-.calculator-card {
-    display: block;
-    padding: 25px;
-    background-color: #f4f6f8;
-    border-radius: 12px;
-    text-decoration: none;
-    color: #222;
-    border: 1px solid #ddd;
-    transition: 0.2s;
-}
-
-.calculator-card:hover {
-    transform: translateY(-5px);
-}
-
-.calculator-card h3 {
-    margin-top: 0;
-}
-
-.calculator-card p {
-    margin-bottom: 0;
-    line-height: 1.5;
-}@media (max-width: 600px) {
-    .calculator-grid {
-        grid-template-columns: 1fr;
-    }
-
-    main {
-        margin: 20px 10px;
-        padding: 15px;
-    }
-
-    nav a {
-        margin: 0 6px;
-    }
-}
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-form label {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-form input,
-form select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-form button {
-    align-self: flex-start;
-    margin-top: 15px;
-}
-/* =========================================
-   MINING ENGINEER TOOLKIT
-   PROFESSIONAL MINING BACKGROUND
-   ========================================= */
-
-body {
-    background:
-        linear-gradient(
-            rgba(8, 11, 13, 0.78),
-            rgba(8, 11, 13, 0.88)
-        ),
-        url("https://images.unsplash.com/photo-1750181866304-2f4f5e9b4e2b?auto=format&fit=crop&w=2000&q=85");
-
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
-
-/* Keep the content readable over the photograph */
-main {
-    position: relative;
-}
-
-/* Give the header a premium dark overlay */
-header {
-    background: rgba(5, 8, 10, 0.45);
-    backdrop-filter: blur(2px);
-}
-
-/* Professional navigation */
-nav {
-    background: rgba(5, 8, 10, 0.88);
-    backdrop-filter: blur(8px);
-}
-/* =========================================
-   PREMIUM HOMEPAGE HERO
-   ========================================= */
-
-header {
     padding: 90px 20px 75px;
     text-align: center;
     background: linear-gradient(
@@ -173,6 +21,7 @@ header h1 {
     font-weight: 800;
     letter-spacing: 1px;
     margin: 0 0 15px;
+    color: white;
 }
 
 header p {
@@ -182,9 +31,6 @@ header p {
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.72);
 }
-/* =========================================
-   PREMIUM NAVIGATION
-   ========================================= */
 
 nav {
     display: flex;
@@ -214,17 +60,57 @@ nav a:hover {
     background: rgba(255, 255, 255, 0.08);
     transform: translateY(-1px);
 }
-/* =========================================
-   REFINED CALCULATOR CARDS
-   ========================================= */
+
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+button {
+    padding: 12px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #e8f5e9;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.result h2 {
+    margin-bottom: 10px;
+}
+
+.calculator-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
 
 .calculator-card {
     position: relative;
     overflow: hidden;
+    display: block;
+
+    padding: 26px;
+
+    background-color: #ffffff;
     border: 1px solid #dedede;
     border-radius: 14px;
-    padding: 26px;
-    background: #ffffff;
+
+    text-decoration: none;
+    color: #222;
+
+    box-sizing: border-box;
 }
 
 .calculator-card::before {
@@ -232,22 +118,23 @@ nav a:hover {
     position: absolute;
     left: 0;
     top: 0;
+
     width: 4px;
     height: 100%;
+
     background: #d6a03c;
 }
 
 .calculator-card h3 {
+    margin-top: 0;
     margin-bottom: 12px;
     font-weight: 700;
 }
 
 .calculator-card p {
+    margin-bottom: 0;
     line-height: 1.6;
 }
-/* =========================================
-   CALCULATOR SECTION HEADING
-   ========================================= */
 
 #calculators h2 {
     position: relative;
@@ -261,8 +148,10 @@ nav a:hover {
     position: absolute;
     left: 0;
     bottom: 0;
+
     width: 55px;
     height: 3px;
+
     background: #d6a03c;
     border-radius: 3px;
 }
@@ -272,9 +161,6 @@ nav a:hover {
     margin-bottom: 32px;
     color: #666;
 }
-/* =========================================
-   PROFESSIONAL RESOURCES SECTION
-   ========================================= */
 
 #resources {
     max-width: 1200px;
@@ -293,30 +179,6 @@ nav a:hover {
     color: #666;
     line-height: 1.7;
 }
-/* =========================================
-   PROFESSIONAL ABOUT SECTION
-   ========================================= */
-
-#about {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 20px 80px;
-    border-top: 1px solid #e5e5e5;
-}
-
-#about h2 {
-    margin-bottom: 12px;
-    font-size: 30px;
-}
-
-#about p {
-    max-width: 750px;
-    color: #666;
-    line-height: 1.7;
-}
-/* =========================================
-   RESOURCE CARDS
-   ========================================= */
 
 .resource-grid {
     display: grid;
@@ -336,6 +198,7 @@ nav a:hover {
     border-radius: 14px;
 
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 .resource-card::before {
@@ -361,3 +224,70 @@ nav a:hover {
     color: #666;
     line-height: 1.6;
 }
+
+#about {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+    border-top: 1px solid #e5e5e5;
+}
+
+#about h2 {
+    margin-bottom: 12px;
+    font-size: 30px;
+}
+
+#about p {
+    max-width: 750px;
+    color: #666;
+    line-height: 1.7;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+form input,
+form select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+form button {
+    align-self: flex-start;
+    margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resource-grid {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        margin: 20px 10px;
+        padding: 15px;
+    }
+
+    nav a {
+        margin: 0 6px;
+    }
+
+    header {
+        padding: 60px 20px 50px;
+    }
+}                                                                    
