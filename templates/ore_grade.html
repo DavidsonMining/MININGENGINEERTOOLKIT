@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ore Grade Calculator | Mining Engineer Toolkit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>⛏️ Ore Grade Calculator</h1>
+        <p>Calculate the average grade of ore from metal content and ore mass</p>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/stripping-ratio">Stripping Ratio</a>
+        <a href="/porosity">Porosity</a>
+        <a href="/density">Density</a>
+        <a href="/grade-recovery">Grade & Recovery</a>
+        <a href="/bulk-density">Bulk Density</a>
+        <a href="/tonnage">Tonnage</a>
+        <a href="/haulage">Haulage</a>
+        <a href="/blasting">Blasting</a>
+        <a href="/pit-volume">Pit & Bench Volume</a>
+        <a href="/ore-grade">Ore Grade</a>
+    </nav>
+    <main>
+        <h2>Enter Ore Data</h2>
+        <p>
+            Enter the metal content and total ore mass to calculate
+            the average ore grade.
+        </p>
+        <form method="POST">
+            <label for="metal_content">Metal Content (kg)</label>
+            <input
+                type="number"
+                id="metal_content"
+                name="metal_content"
+                placeholder="e.g. 25"
+                step="any"
+                min="0"
+                required
+            >
+            <label for="ore_mass">Ore Mass (tonnes)</label>
+            <input
+                type="number"
+                id="ore_mass"
+                name="ore_mass"
+                placeholder="e.g. 1000"
+                step="any"
+                min="0"
+                required
+            >
+            <button type="submit">Calculate Ore Grade</button>
+        </form>
+        {% if result is not none %}
+            <div class="result">
+                <h2>Calculated Ore Grade</h2>
+                <p class="result-value">
+                    {{ result }} %
+                </p>
+                <p>
+                    <strong>Formula:</strong>
+                    Ore Grade = Metal Content ÷ Ore Mass × 100
+                </p>
+            </div>
+        {% endif %}
+        <div class="calculator-info">
+            <h3>How it works</h3>
+            <p>
+                Ore grade represents the concentration of valuable
+                metal contained in the ore.
+            </p>
+            <p>
+                <strong>Example:</strong>
+                25 kg of metal in 1,000 tonnes of ore gives a grade
+                of 0.0025%.
+            </p>
+            <p>
+                Make sure the metal content and ore mass units are
+                consistent before calculating.
+            </p>
+        </div>
+        <br>
+        <a href="/">← Back to Home</a>
+    </main>
+</body>
+</html>
+
