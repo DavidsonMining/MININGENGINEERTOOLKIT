@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Assistant - Mining Engineer Toolkit</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* =====================================================
+           MAIN APP
+           ===================================================== */
+
+        .app {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        .sidebar {
+            width: 270px;
+            background: #17202a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-top {
+            padding: 18px;
+            border-bottom: 1px solid #2c3946;
+        }
+
+        .brand {
+            margin-bottom: 15px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 19px;
+        }
+
+        .brand p {
+            margin: 5px 0 0;
+            color: #b9c3cc;
+            font-size: 12px;
+        }
+
+        .new-chat {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            text-align: center;
+            background: #263442;
+            color: white;
+            padding: 11px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .new-chat:hover {
+            background: #344454;
+        }
+
+        .history-title {
+            padding: 18px 18px 8px;
+            color: #9eabb7;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .history {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 10px 15px;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .chat-link {
+            flex: 1;
+            min-width: 0;
+            display: block;
+            color: #dce3e8;
+            text-decoration: none;
+            padding: 10px 9px;
+            border-radius: 7px;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-link:hover {
+            background: #263442;
+        }
+
+        .chat-link.active {
+            background: #263442;
+            color: white;
+        }
+
+        .delete-button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #8f9aa4;
+            cursor: pointer;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .delete-button:hover {
+            background: #3a2930;
+            color: #ff9b9b;
+        }
+
+        /* =====================================================
+           MAIN CONTENT
+           ===================================================== */
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+        }
+
+        .topbar {
+            height: 64px;
+            border-bottom: 1px solid #e1e5e8;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu {
+            display: none;
+            border: none;
+            background: transparent;
+            font-size: 23px;
+            cursor: pointer;
+            color: #17202a;
+        }
+
+        .chat-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #17202a;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px 20px;
+        }
+
+        .messages-inner {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 90px 20px 40px;
+        }
+
+        .welcome-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            background: #17202a;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .welcome h2 {
+            margin: 0 0 8px;
+            font-size: 24px;
+            color: #17202a;
+        }
+
+        .welcome p {
+            margin: 0 auto;
+            max-width: 560px;
+            color: #68737d;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 24px;
+            gap: 12px;
+        }
+
+        .message.user-message {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 78%;
+        }
+
+        .message.user-message .message-content {
+            background: #17202a;
+            color: white;
+            padding: 13px 16px;
+            border-radius: 12px 12px 3px 12px;
+        }
+
+        .message.assistant-message .message-content {
+            background: #eef2f5;
+            color: #222;
+            padding: 14px 16px;
+            border-radius: 12px 12px 12px 3px;
+        }
+
+        .message-role {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            opacity: 0.65;
+        }
+
+        .message-text {
+            white-space: pre-wrap;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* =====================================================
+           INPUT
+           ===================================================== */
+
+        .input-wrapper {
+            border-top: 1px solid #e1e5e8;
+            padding: 15px 20px 18px;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .input-form {
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-form input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px 15px;
+            border: 1px solid #cbd1d6;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .input-form input:focus {
+            border-color: #17202a;
+        }
+
+        .send-button {
+            border: none;
+            background: #17202a;
+            color: white;
+            padding: 0 22px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .send-button:hover {
+            background: #263442;
+        }
+
+        .input-note {
+            max-width: 850px;
+            margin: 7px auto 0;
+            color: #8a949d;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            body {
+                overflow: hidden;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: -280px;
+                z-index: 1000;
+                transition: left 0.25s ease;
+                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.12);
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .mobile-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.35);
+                z-index: 999;
+            }
+
+            .mobile-overlay.show {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .messages {
+                padding: 20px 12px;
+            }
+
+            .message-content {
+                max-width: 88%;
+            }
+
+            .welcome {
+                padding: 70px 10px 30px;
+            }
+
+            .welcome h2 {
+                font-size: 21px;
+            }
+
+            .input-wrapper {
+                padding: 12px;
+            }
+
+            .input-form {
+                gap: 7px;
+            }
+
+            .input-form input {
+                padding: 13px 12px;
+                font-size: 16px;
+            }
+
+            .send-button {
+                padding: 0 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="brand">
+                <h1>Mining Engineer Toolkit</h1>
+                <p>AI Assistant</p>
+            </div>
+
+            <a
+                href="/ai-assistant/new"
+                class="new-chat"
+            >
+                + New Chat
+            </a>
+
+        </div>
+
+        <div class="history-title">
+            Chat History
+        </div>
+
+        <div class="history">
+
+            {% if conversations %}
+
+                {% for chat in conversations %}
+
+                <div class="chat-item">
+
+                    <a
+                        href="/ai-assistant?conversation_id={{ chat['id'] }}"
+                        class="chat-link {% if chat['id'] == conversation_id %}active{% endif %}"
+                        title="{{ chat['title'] }}"
+                    >
+                        {{ chat['title'] }}
+                    </a>
+
+                    <form
+                        method="POST"
+                        action="/ai-assistant/delete/{{ chat['id'] }}"
+                        onsubmit="return confirm('Delete this conversation?');"
+                    >
+                        <button
+                            type="submit"
+                            class="delete-button"
+                            title="Delete chat"
+                        >
+                            ×
+                        </button>
+                    </form>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div
+                    style="
+                        padding: 10px;
+                        color: #8995a0;
+                        font-size: 13px;
+                    "
+                >
+                    No conversations yet.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </aside>
+
+    <div
+        class="mobile-overlay"
+        id="mobileOverlay"
+    ></div>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <button
+                type="button"
+                class="mobile-menu"
+                id="mobileMenu"
+                aria-label="Open chat history"
+            >
+                ☰
+            </button>
+
+            <div class="chat-title">
+
+                {% if conversation %}
+                    {{ conversation['title'] }}
+                {% else %}
+                    Mining Engineer Toolkit AI
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MESSAGES
+             ================================================= -->
+
+        <div class="messages" id="messages">
+
+            <div class="messages-inner">
+
+                {% if not messages %}
+
+                    <div class="welcome">
+
+                        <div class="welcome-icon">
+                            M
+                        </div>
+
+                        <h2>
+                            Mining Engineer Toolkit AI
+                        </h2>
+
+                        <p>
+                            Your mining engineering study and
+                            problem-solving assistant. Ask about
+                            mining calculations, geology, mine
+                            planning, equipment, mineral processing,
+                            mining methods and more.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% for message in messages %}
+
+                    {% if message['role'] == 'user' %}
+
+                        <div class="message user-message">
+
+                            <div class="message-content">
+
+                                <div class="message-role">
+                                    You
+                                </div>
+
+                                <div class="message-text">
+                                    {{ message['content'] }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="message assistant-message">
+
+                            <div class="message-content">
+
+                                <div class="message-role">
+                                    Mining Engineer Toolkit AI
+                                </div>
+
+                                <div class="message-text">
+                                    {{ message['content'] }}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             INPUT
+             ================================================= -->
+
+        <div class="input-wrapper">
+
+            <form
+                class="input-form"
+                method="POST"
+                action="/ai-assistant"
+            >
+
+                <input
+                    type="hidden"
+                    name="conversation_id"
+                    value="{{ conversation_id }}"
+                >
+
+                <input
+                    type="text"
+                    name="question"
+                    placeholder="Ask a mining engineering question..."
+                    autocomplete="off"
+                    required
+                    autofocus
+                >
+
+                <button
+                    type="submit"
+                    class="send-button"
+                >
+                    Send
+                </button>
+
+            </form>
+
+            <div class="input-note">
+                Mining Engineer Toolkit AI can make mistakes.
+                Verify important engineering decisions.
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    const mobileMenu =
+        document.getElementById("mobileMenu");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const mobileOverlay =
+        document.getElementById("mobileOverlay");
+
+    if (mobileMenu) {
+
+        mobileMenu.addEventListener(
+            "click",
+            function () {
+
+                sidebar.classList.add("open");
+
+                mobileOverlay.classList.add("show");
+
+            }
+        );
+
+    }
+
+    if (mobileOverlay) {
+
+        mobileOverlay.addEventListener(
+            "click",
+            function () {
+
+                sidebar.classList.remove("open");
+
+                mobileOverlay.classList.remove("show");
+
+            }
+        );
+
+    }
+
+
+    /*
+       Automatically scroll to the latest message.
+    */
+
+    const messages =
+        document.getElementById("messages");
+
+    if (messages) {
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+    }
+
+</script>
+
+</body>
+</html>
