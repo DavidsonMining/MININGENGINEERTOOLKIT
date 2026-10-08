@@ -1417,12 +1417,15 @@ LOCAL_KNOWLEDGE = {
 # LOCAL KNOWLEDGE ANSWER ENGINE
 # ============================================================
 
-def ask_ollama(question):
-    # Use Ollama Cloud on Render and the student's local Ollama elsewhere.
+def ask_ai_fallback(question):
+    # Use Cloudflare Workers AI on Render and local Ollama on desktop.
     on_render = os.getenv("RENDER", "").lower() == "true"
-    api_key = os.getenv("OLLAMA_API_KEY")
+    cloudflare_account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
+    cloudflare_api_token = os.getenv("CLOUDFLARE_API_TOKEN")
 
-    if on_render and not api_key:
+    if on_render and (
+        not cloudflare_account_id or not cloudflare_api_token
+    ):
         return None
 
     try:
@@ -1458,12 +1461,20 @@ Student question:
 
         if on_render:
             response = requests.post(
-                "https://ollama.com/api/chat",
-                headers={"Authorization": f"Bearer {api_key}"},
+                "https://api.cloudflare.com/client/v4/accounts/"
+                f"{cloudflare_account_id}/ai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {cloudflare_api_token}",
+                    "Content-Type": "application/json"
+                },
                 json={
-                    "model": os.getenv("OLLAMA_MODEL", "gemma4:31b"),
+                    "model": os.getenv(
+                        "CLOUDFLARE_MODEL",
+                        "@cf/qwen/qwen3.8-27b"
+                    ),
                     "messages": [{"role": "user", "content": prompt}],
-                    "stream": False
+                    "stream": False,
+                    "max_tokens": 1200
                 },
                 timeout=300
             )
@@ -1486,7 +1497,15 @@ Student question:
         data = response.json()
 
         if on_render:
-            return data.get("message", {}).get("content", "").strip()
+            choices = data.get("choices", [])
+            if choices:
+                return (
+                    choices[0]
+                    .get("message", {})
+                    .get("content", "")
+                    .strip()
+                )
+            return ""
 
         return data.get("response", "").strip()
 
@@ -1852,16 +1871,16 @@ def ai_assistant():
     # --------------------------------------------------------
     # STEP 2:
     # If the Toolkit does not know the answer,
-    # ask Ollama (Cloud on Render, local Ollama during desktop use).
+    # ask Cloudflare Workers AI on Render or local Ollama on desktop.
     # --------------------------------------------------------
 
-    ollama_answer = ask_ollama(
+    ai_answer = ask_ai_fallback(
         local_question
     )
 
-    if ollama_answer:
+    if ai_answer:
 
-        answer = ollama_answer
+        answer = ai_answer
 
         add_message(
             chat_id,
@@ -1875,13 +1894,13 @@ def ai_assistant():
                 conversation_id=chat_id
             )
         )
-    # Do not depend on Gemini when Ollama is unavailable. Report the
-    # Ollama problem clearly so the hosted service can be configured.
+    # Do not depend on Gemini when hosted inference is unavailable.
     if os.getenv("RENDER", "").lower() == "true":
         answer = (
-            "Ollama Cloud could not answer this question. Check that "
-            "OLLAMA_API_KEY is set in the hosting service and that the "
-            "configured Ollama model is available, then try again."
+            "Cloudflare Workers AI could not answer this question. Check "
+            "that CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are set "
+            "in the hosting service, and that the free daily allowance "
+            "has not been reached. Then try again."
         )
         add_message(chat_id, "assistant", answer)
         return redirect(
