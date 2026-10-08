@@ -6,14 +6,27 @@ body {
 }
 
 header {
+    position: relative;
     padding: 90px 20px 75px;
     text-align: center;
-    background: linear-gradient(
-        135deg,
-        rgba(18, 23, 27, 0.98),
-        rgba(30, 35, 39, 0.96)
-    );
+    background:
+        linear-gradient(135deg, rgba(18, 23, 27, 0.83), rgba(30, 35, 39, 0.70)),
+        url("https://images.unsplash.com/photo-1786209273552-3b57dec47c94?auto=format&fit=crop&fm=jpg&q=82&w=2400") center 56% / cover no-repeat;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.photo-credit {
+    position: absolute;
+    right: 16px;
+    bottom: 9px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+}
+
+.photo-credit a {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 header h1 {
@@ -67,6 +80,91 @@ main {
     padding: 20px;
     background-color: white;
     border-radius: 10px;
+}
+
+@keyframes robot-wave {
+    0%, 100% { transform: rotate(0); }
+    35% { transform: rotate(-14deg); }
+    65% { transform: rotate(7deg); }
+}
+
+.assistant-float {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px 9px 10px;
+    color: #ffffff;
+    background: #29363c;
+    border: 1px solid rgba(229, 182, 83, 0.75);
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(24, 34, 39, 0.24);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assistant-float:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(24, 34, 39, 0.3);
+}
+
+.assistant-float-icon {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+}
+
+.float-bot-shell {
+    fill: #edf1f3;
+    stroke: #aeb9bf;
+    stroke-width: 1.5;
+}
+
+.float-bot-visor {
+    fill: #29363c;
+}
+
+.float-bot-eye {
+    fill: #e5b653;
+}
+
+.float-bot-line,
+.float-bot-wave {
+    fill: none;
+    stroke: #aeb9bf;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.float-bot-wave {
+    stroke: #e5b653;
+    transform-box: fill-box;
+    transform-origin: 10% 90%;
+    animation: robot-wave 2.4s ease-in-out infinite;
+}
+
+.float-bot-accent {
+    fill: #e5b653;
+}
+
+.assistant-float-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.2;
+}
+
+.assistant-float-label strong {
+    font-size: 13px;
+}
+
+.assistant-float-label span {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
 }
 
 button {
@@ -270,6 +368,11 @@ form button {
 }
 
 @media (max-width: 600px) {
+    .assistant-float {
+        right: 12px;
+        bottom: 12px;
+    }
+
     .calculator-grid {
         grid-template-columns: 1fr;
     }
@@ -289,5 +392,11 @@ form button {
 
     header {
         padding: 60px 20px 50px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .float-bot-wave {
+        animation: none;
     }
 }
