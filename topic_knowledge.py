@@ -431,6 +431,26 @@ TOPIC_KNOWLEDGE = {
         "or another appropriate unit depending on the commodity."
     ),
 
+    "dilution": (
+        "Ore dilution is waste or low-grade material mined together "
+        "with ore. It increases the tonnes sent for hauling and processing "
+        "while lowering the average head grade and metal recovered per "
+        "tonne.\n\n"
+
+        "If the dilution is barren, a simple diluted-grade estimate is:\n\n"
+        "Diluted Grade = (Ore Tonnes × Ore Grade) / "
+        "(Ore Tonnes + Dilution Tonnes)\n\n"
+
+        "Dilution can reduce revenue per tonne and add mining, hauling "
+        "and processing costs. If the diluted feed falls below the "
+        "applicable cut-off grade, or its revenue no longer covers the "
+        "relevant costs, a block or stope may become uneconomic. The "
+        "cut-off grade itself depends on factors such as commodity price, "
+        "recovery and costs; dilution does not automatically change that "
+        "formal threshold, but may require a higher in-situ grade for the "
+        "mined material to remain economic after dilution."
+    ),
+
 
     # ========================================================
     # ROCK BLASTING
